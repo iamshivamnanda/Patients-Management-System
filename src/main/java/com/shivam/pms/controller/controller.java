@@ -41,9 +41,9 @@ public class controller {
             LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
 
-            Patient patient = new Patient(null, name, phoneNo, timestamp, "Booked");
-            patientRepository.save(patient);
-            System.out.println("SAVED");
+            // Patient patient = new Patient(null, name, phoneNo, timestamp, "Booked");
+            // patientRepository.save(patient);
+            // System.out.println("SAVED");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -67,7 +67,7 @@ public class controller {
     public ResponseEntity<ArrayList<Patient>> getAppointments(){
         try {
             ArrayList<Patient> patients = new ArrayList<Patient>();
-           patientRepository.findByOrderByName().forEach(patient -> patients.add(patient));
+        //    patientRepository.findByOrderByName().forEach(patient -> patients.add(patient));
            return new ResponseEntity<ArrayList<Patient>>(patients, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);
@@ -79,7 +79,7 @@ public class controller {
     public ResponseEntity<ArrayList<Patient>> todayAppointments(){
         try {
             ArrayList<Patient> patients = new ArrayList<Patient>();
-           patientRepository.findByOrderByName().forEach(patient -> patients.add(patient));
+        //    patientRepository.findByDatetime().forEach(patient -> patients.add(patient));
            return new ResponseEntity<ArrayList<Patient>>(patients, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println(e);

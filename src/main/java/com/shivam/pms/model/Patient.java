@@ -1,38 +1,42 @@
 package com.shivam.pms.model;
 
-import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     Integer id;
-
     String name;
     String phoneno;
-    Timestamp datetime;
-    String status;
+
+    @OneToMany(targetEntity = Appointments.class,cascade = CascadeType.ALL)
+    @JoinColumn(name ="pa_fk",referencedColumnName = "id")
+    List<Appointments> appointments;
+
     public Patient() {
     }
 
-    public Patient(Integer id, String name, String phoneno, Timestamp datetime, String status) {
+    public Patient(Integer id, String name, String phoneno, List<Appointments> appointments) {
         this.id = id;
         this.name = name;
         this.phoneno = phoneno;
-        this.datetime = datetime;
-        this.status = status;
+        this.appointments = appointments;
     }
 
-    public Integer getPid() {
+    public Integer getId() {
         return id;
     }
 
-    public void setPid(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,35 +48,20 @@ public class Patient {
         this.name = name;
     }
 
-    public String getphoneno() {
+    public String getPhoneno() {
         return phoneno;
     }
 
-    public void setphoneno(String phoneno) {
+    public void setPhoneno(String phoneno) {
         this.phoneno = phoneno;
     }
 
-    public Timestamp getdatetime() {
-        return datetime;
+    public List<Appointments> getAppointments() {
+        return appointments;
     }
 
-    public void setdatetime(Timestamp datetime) {
-        this.datetime = datetime;
+    public void setAppointments(List<Appointments> appointments) {
+        this.appointments = appointments;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Patient [datetime=" + datetime + ", id=" + id + ", name=" + name + ", phoneno=" + phoneno + ", status="
-                + status + "]";
-    }
-    
     
 }

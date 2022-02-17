@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html xmlns:th="https://www.thymeleaf.org">
-
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,38 +11,133 @@
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <title>Welcome Doctor</title>
+        <style>
+            .panel {
+                border: 1px solid #f4511e;
+                border-radius: 0;
+                transition: box-shadow 0.5s;
+            }
+
+            .panel:hover {
+                box-shadow: 5px 0px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .panel-footer .btn:hover {
+                border: 1px solid #f4511e;
+                background-color: #fff !important;
+                color: #f4511e;
+            }
+
+            .panel-heading {
+                color: #fff !important;
+                background-color: #f4511e !important;
+                padding: 25px;
+                border-bottom: 1px solid transparent;
+                border-top-left-radius: 0px;
+                border-top-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
+            .panel-footer {
+                background-color: #fff !important;
+            }
+
+            .panel-footer h3 {
+                font-size: 32px;
+            }
+
+            .panel-footer h4 {
+                color: #aaa;
+                font-size: 14px;
+            }
+
+            .panel-footer .btn {
+                margin: 15px 0;
+                background-color: #f4511e;
+                color: #fff;
+            }
+        </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #f4511e !important;" >
+        <nav
+            class="navbar navbar-expand-sm navbar-dark"
+            style="background-color: #f4511e !important"
+        >
             <div class="container-fluid">
-              <a class="navbar-brand" href="javascript:void(0)">Logo</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/patients">Patients</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/Appointments">Appointments</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/todayAppointments">Appointments For The Day</a>
-                  </li>
-                </ul>
-              </div>
+                <a class="navbar-brand" href="/">Logo</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mynavbar"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/patient/showpatients">Patients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Appointments"
+                                >Appointments</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/todayAppointments"
+                                >Appointments For The Day</a
+                            >
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </nav>
+        </nav>
         <div
             class="container p-5 my-5 text-white"
             style="background-color: #f4511e"
         >
             <h1>Welcome Doctor</h1>
-            
-            <p th:text= " 'Today is '+ ${currDateTime}  " />
+
+            <p th:text=" 'Today is '+ ${currDateTime}  " />
         </div>
-        <div class="container mt-3">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="text-center">
+                    <h2>Services</h2>
+                    <br />
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default text-center">
+                            <div class="panel-heading">
+                                <h1>Patients</h1>
+                            </div>
+                            <div class="panel-body"></div>
+                            <div class="panel-footer">
+                                <a href="patient/add-patient">
+                                <button class="btn btn-lg">Add Patient</button>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default text-center">
+                            <div class="panel-heading">
+                                <h1>Appointments</h1>
+                            </div>
+                            <div class="panel-body"></div>
+                            <div class="panel-footer">
+                                <button class="btn btn-lg">
+                                    Show Appointments
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container mt-3">
         <h2>Enter Patient Appointment</h2>
             <form action="/bookAppointment" method="POST">
                 <div class="mb-3 mt-3">
@@ -61,7 +155,6 @@
                 </div>
                 <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Submit</button>
               </form>
-              </div>
+              </div> -->
     </body>
-
 </html>
