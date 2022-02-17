@@ -1,0 +1,35 @@
+  Project Discussion
+  ~~~~~~~~~~~~~~~~~~
+
+    1. Doctors Patients Queue
+       ~~~~~~~~~~~~~~~~~~~~~~
+        For a Doctor, patients will walk in and doctor serves them in a Queue 
+        i.e. 1st come 1st serve basis -> Problem (As patients they may not agree to this)
+        
+        Create a Patients Queue i.e. add the patient appointment with date and time in DB
+        Doctor will have below options in the web app:
+        1. Patients     | CRUD Operations
+        2. Appointments | CRUD Operations
+        3. List Appointments for the Day i.e. Today and serve them in QUEUE bases
+           Doctor will update the status of the appointment as : Seen, Cancelled, Update (to another date/time)
+        4. Insights i.e. whenever doctor enters a date, number of seen, cancelled and updated appointments should come as graph (charts.js)   
+        5. Tech Stack: Spring Boot, HTML, CSS, JS, Bootstrap/AnyOtherCSSFW, MySQL/MongoDB
+
+
+    2. Wheel Balancing Reminders
+       ~~~~~~~~~~~~~~~~~~~~~~~~~
+        For a car service agency, it is difficult to manage and maintain the wheel balancing for their Customers
+        Reminding customers on the due dates it important for the vehicle as well as business
+
+        Create Wheel Balancing Reminder i.e. add the vehcile wheel balancing with date and time when it will be due next
+        Agency will have below options in the web app:
+        1. Customers | CRUD Operations
+        2. Vehicles  | CRUD operations having asscoiation with Customers
+        3. List customers, whose wheel balancing is due on the particular day
+           Update Customer has visited, cancelled, updated the wheel balancing schedule
+        4. Insights i.e. whenever agency enters a date, number of visited, cancelled and updated customer should come as graph (charts.js)   
+        5. Tech Stack: Spring Boot, HTML, CSS, JS, Bootstrap/AnyOtherCSSFW, MySQL/MongoDB
+
+
+    TIP: Use Session20B to develop the project :)
+    Submission Date: 16th Feb, 2022
