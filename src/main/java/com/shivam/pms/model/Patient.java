@@ -1,6 +1,6 @@
 package com.shivam.pms.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,18 +12,19 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+
     String name;
-    String phoneNo;
-    Date dateTime;
+    String phoneno;
+    Timestamp datetime;
     String status;
     public Patient() {
     }
 
-    public Patient(int id, String name, String phoneNo, Date dateTime, String status) {
+    public Patient(Integer id, String name, String phoneno, Timestamp datetime, String status) {
         this.id = id;
         this.name = name;
-        this.phoneNo = phoneNo;
-        this.dateTime = dateTime;
+        this.phoneno = phoneno;
+        this.datetime = datetime;
         this.status = status;
     }
 
@@ -43,20 +44,20 @@ public class Patient {
         this.name = name;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getphoneno() {
+        return phoneno;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setphoneno(String phoneno) {
+        this.phoneno = phoneno;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public Timestamp getdatetime() {
+        return datetime;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setdatetime(Timestamp datetime) {
+        this.datetime = datetime;
     }
 
     public String getStatus() {
@@ -69,7 +70,7 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient [dateTime=" + dateTime + ", id=" + id + ", name=" + name + ", phoneNo=" + phoneNo + ", status="
+        return "Patient [datetime=" + datetime + ", id=" + id + ", name=" + name + ", phoneno=" + phoneno + ", status="
                 + status + "]";
     }
     
