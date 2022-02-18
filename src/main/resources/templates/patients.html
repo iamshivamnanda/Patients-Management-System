@@ -11,54 +11,88 @@
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <title>Patient</title>
+        <style>
+            .patient-list{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .controls{
+                display: flex;
+                align-items: center;
+            }
+        </style>
     </head>
     <body>
         <nav
-            class="navbar navbar-expand-sm navbar-dark"
-            style="background-color: #f4511e !important"
-        >
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Logo</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mynavbar"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mynavbar">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/patient/showpatients">Patients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Appointments"
-                                >Appointments</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/todayAppointments"
-                                >Appointments For The Day</a
-                            >
-                        </li>
-                    </ul>
-                </div>
+        class="navbar navbar-expand-sm navbar-dark"
+        style="background-color: #f4511e !important"
+    >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Home</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mynavbar"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/patient/showpatients">Patients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Appointments/allAppointments"
+                            >Appointments</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Appointments/todayAppointments"
+                            >Appointments For The Day</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/insights"
+                            >Insights</a
+                        >
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
+
         <div
-        class="container p-5 my-5 text-white"
+        class="container p-5 my-5 text-white shadow rounded"
         style="background-color: #f4511e"
     >
         <h1>Patients List</h1>
     </div>
     <div
-    class="container p-3 my-5 text-white"
-    style="background-color: #f4511e"
+    class="container p-3 my-5 text-black patient-list shadow-sm rounded"
+    style="border:2px solid #f4511e;"
     th:each="patient: ${patients}"
 >
+<div>
     <h5 th:text="${patient.name}" />
     <h5 th:text="${patient.phoneno}" />
+
+</div>
+    <div class="controls">
+<form action="/patient/del-patient" method="post">
+    <input type="hidden" name="id"  id ="id" th:value="${patient.id}">
+    <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Delete</button>
+</form> 
+<form action="/patient/edit-patient" method="post">
+    <input type="hidden" name="id"  id ="id" th:value="${patient.id}">
+    <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Edit</button>
+</form> 
+<form action="/Appointments/add-appointment-page" method="post">
+    <input type="hidden" name="id"  id ="id" th:value="${patient.id}">
+    <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Appointments</button>
+</form> 
+</div>
 </div>
         
     </body>

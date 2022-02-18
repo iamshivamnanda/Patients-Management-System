@@ -11,14 +11,84 @@
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <title>Add Appointment</title>
+        <style>
+            .patient-list{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .controls{
+                display: flex;
+                align-items: center;
+            }
+            .datetime{
+                display: none;
+            }
+        </style>
+         <script>
+            function change() {
+                let status = document.getElementById("status");
+            if(status.value === "Update"){
+                let datetimebox = document.getElementById("datetimebox");
+                datetimebox.style.display = "block"; 
+            }
+            }
+            function bttnclick(id){
+                let modelid = document.getElementById("modelid");
+                modelid.value = id;
+            }
+            
+        </script>
     </head>
     <body>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Appointment Status</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                 <form action="/Appointments/update-status" method="post" onchange="change()">
+                    <input type="hidden" name="modelid"  id ="modelid" value="">
+                    <label for="status" class="form-label">Select Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option>Seen</option>
+                        <option>Cancelled</option>
+                        <option>Update</option>
+                      </select>
+                    <div class="datetime" id="datetimebox">
+                    <label for="dateTime">Enter Appointment DateTime:</label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        value="2018--12T19:30"
+                        min="2018-06-07T00:00"
+                        id="dateTime"
+                        name="dateTime"
+                    />
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Submit</button>
+            </div>
+            
+        </form>
+              </div>
+            </div>
+          </div>
         <nav
             class="navbar navbar-expand-sm navbar-dark"
             style="background-color: #f4511e !important"
         >
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Logo</a>
+                <a class="navbar-brand" href="/">Home</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -30,16 +100,27 @@
                 <div class="collapse navbar-collapse" id="mynavbar">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/patients">Patients</a>
+                            <a class="nav-link" href="/patient/showpatients"
+                                >Patients</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Appointments"
+                            <a
+                                class="nav-link"
+                                href="/Appointments/allAppointments"
                                 >Appointments</a
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/todayAppointments"
+                            <a
+                                class="nav-link"
+                                href="/Appointments/todayAppointments"
                                 >Appointments For The Day</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/insights"
+                                >Insights</a
                             >
                         </li>
                     </ul>
@@ -47,30 +128,75 @@
             </div>
         </nav>
         <div
-            class="container p-5 my-5 text-white"
+            class="container p-5 my-5 text-white shadow-lg rounded"
             style="background-color: #f4511e"
         >
-            <h1>Add a Appointment</h1>
+            <h1 th:text="${patient.name}" />
+            <h4 th:text=" 'PhoneNo : ' + ${patient.phoneno}" />
         </div>
-        
-        <div class="container mt-3">
-        <h2>Enter Appointment Details</h2>
-            <form action="/bookAppointment" method="POST">
-                <div class="mb-3 mt-3">
-                  <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter Patient's Name" name="name">
-                </div>
+
+        <div class="container mt-3 p-4 shadow rounded">
+            <h2>Create New Appointment</h2>
+            <form action="/Appointments/bookAppointment" method="POST">
                 <div class="mb-3">
-                  <label for="phoneNo">Phone Number:</label>
-                  <input type="text" class="form-control" id="phoneNo" placeholder="Enter Patient's Phone Number " name="phoneNo">
+                    <input
+                        type="hidden"
+                        name="id"
+                        id="id"
+                        th:value="${patient.id}"
+                    />
+                    <label for="dateTime">Enter Appointment DateTime:</label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        value="2018--12T19:30"
+                        min="2018-06-07T00:00"
+                        id="dateTime"
+                        name="dateTime"
+                    />
+                    <label for="Description">Appointment Description:</label>
+                    <input
+                        type="textarea"
+                        class="form-control"
+                        placeholder="Enter Appointment description"
+                        id="desc"
+                        name="desc"
+                    />
                 </div>
-                <div class="mb-3">
-                  <label for="dateTime">Enter Appointment DateTime:</label>
-                  <input type="datetime-local" class="form-control"  value="2018--12T19:30"
-                  min="2018-06-07T00:00" id="dateTime"  name="dateTime">
-                </div>
-                <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Submit</button>
-              </form>
-              </div>
+                <button
+                    type="submit"
+                    class="btn btn-outline-light"
+                    style="background-color: #f4511e"
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="container p-3 my-5"
+    th:each="appo: ${appointments}"
+>
+<div class="card shadow-sm rounded" style="border: 2px solid #f4511e;">
+    <div class="card-body patient-list">
+        <div>
+        <h4 class="card-title" th:text="${appo.appdesc}" />
+        <p class="card-text" th:text=" 'Appointment Created Date: ' + ${appo.datecreated}" />
+        <p class="card-text" th:text="'Appointment Date is: ' + ${appo.appointmentdate} " />
+        <div class="controls">
+            <form  class="card-link" action="/Appointments/del-appointment" method="post">
+                <input type="hidden" name="id"  id ="id" th:value="${appo.aid}">
+                <button type="submit" class="btn btn-outline-light"  style="color: #f4511e;border: 2px solid #f4511e;">Delete</button>
+            </form>
+            <!-- <a href="#" class="card-link">Card link</a> -->
+            <button type="button" class="btn" style="color: #f4511e;border: 2px solid #f4511e;" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="'bttnclick(' + ${appo.aid} + ')'">
+                Edit Status
+              </button>
+        </div>
+    </div>
+    <div class="p-1 rounded text-white" style="background-color: #f4511e;">
+        <h4 class="card-title" th:text ="${appo.status}"/>
+    </div>
+    </div>
+  </div>
+</div>
     </body>
 </html>

@@ -1,13 +1,9 @@
 package com.shivam.pms.model;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -18,19 +14,18 @@ public class Patient {
     String name;
     String phoneno;
 
-    @OneToMany(targetEntity = Appointments.class,cascade = CascadeType.ALL)
-    @JoinColumn(name ="pa_fk",referencedColumnName = "id")
-    List<Appointments> appointments;
-
     public Patient() {
     }
 
-    public Patient(Integer id, String name, String phoneno, List<Appointments> appointments) {
+    
+
+    public Patient(Integer id, String name, String phoneno) {
         this.id = id;
         this.name = name;
         this.phoneno = phoneno;
-        this.appointments = appointments;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -56,12 +51,13 @@ public class Patient {
         this.phoneno = phoneno;
     }
 
-    public List<Appointments> getAppointments() {
-        return appointments;
+
+
+    @Override
+    public String toString() {
+        return "Patient [id=" + id + ", name=" + name + ", phoneno=" + phoneno + "]";
     }
 
-    public void setAppointments(List<Appointments> appointments) {
-        this.appointments = appointments;
-    }
+   
     
 }

@@ -1,13 +1,15 @@
 package com.shivam.pms.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.transaction.Transactional;
 
 import com.shivam.pms.model.Patient;
+import com.shivam.pms.repository.AppointmentsRepository;
 import com.shivam.pms.repository.PatientRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class patientcontroller {
 
     @Autowired
     PatientRepository patientRepository;
+
+    @Autowired
+    AppointmentsRepository appointmentsRepository;
 
     @GetMapping("/add-patient")
     public String getAddPatient() {
@@ -49,27 +54,40 @@ public class patientcontroller {
         Patient patient = new Patient();
         patient.setName(name);
         patient.setPhoneno(phoneNo);
-        patientRepository.save(patient);
-        System.out.println("[SAVED]");
-
-        return "bookedStatus";
+        int id = patientRepository.save(patient).getId();
+        System.out.println("[NEW PATIENT ID]  " + id);
+        patient.setId(id);
+        model.addAttribute("patient", patient);
+        return "add-appointment";
     }
 
     @PostMapping("/del-patient")
+    @Transactional
     public String postDelPatient(@RequestParam Integer id, Model model) {
+        appointmentsRepository.deleteByPid(id);
         patientRepository.deleteById(id);
         System.out.println("[DELETED]");
         return "bookedStatus";
     }
 
-    @PostMapping(path = "/update/{id}")
+    @PostMapping("/edit-patient")
+    public String editPatientPage(@RequestParam Integer id, Model model) {
+        Patient patient = patientRepository.findById(id).get();
+        model.addAttribute("patient", patient);
+        return "edit-patient";
+    }
+    
+
+    @PostMapping(path = "/update-patient")
     public String updatePatient(@RequestParam Integer id,
-            @RequestParam String name, @RequestParam String phoneNo) {
+            @RequestParam String name, @RequestParam String phoneNo,Model model) {
         Patient patient = new Patient();
         patient.setId(id);
         patient.setName(name);
         patient.setPhoneno(phoneNo);
         patientRepository.save(patient);
+        model.addAttribute("message", patient.getName() +"'s Details Updated");
+        model.addAttribute("currDateTime", new Date());
         return "bookedStatus";
     }
 }

@@ -14,33 +14,50 @@
         <title>Welcome Doctor</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #f4511e !important;" >
-            <div class="container-fluid">
-              <a class="navbar-brand" href="/">Logo</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
+      <nav
+      class="navbar navbar-expand-sm navbar-dark"
+      style="background-color: #f4511e !important"
+  >
+      <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mynavbar"
+          >
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+              <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Patients</a>
+                      <a class="nav-link" href="/patient/showpatients">Patients</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Appointments</a>
+                      <a class="nav-link" href="/Appointments/allAppointments"
+                          >Appointments</a
+                      >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Appointments For The Day</a>
+                      <a class="nav-link" href="/Appointments/todayAppointments"
+                          >Appointments For The Day</a
+                      >
                   </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/insights"
+                        >Insights</a
+                    >
+                </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
         <div
-            class="container p-5 my-5 text-white"
+            class="container p-5 my-5 text-white shadow-lg rounded"
             style="background-color: #f4511e"
         >
             <h1>Welcome Doctor</h1>
-            <h2>Apoointment Booked</h2>
+            <h2 th:text="${message}" />
             <p th:text= " 'Today is '+ ${currDateTime}  " />
         </div>
     </body>

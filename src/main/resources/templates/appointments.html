@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <title th:text ="${title}" />
+        <style>
+            .patient-list{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .controls{
+                display: flex;
+                align-items: center;
+            }
+            .datetime{
+                display: none;
+            }
+        </style>
+        <script>
+            function change() {
+                let status = document.getElementById("status");
+            if(status.value === "Update"){
+                let datetimebox = document.getElementById("datetimebox");
+                datetimebox.style.display = "block"; 
+            }
+            }
+            function bttnclick(id){
+                let modelid = document.getElementById("modelid");
+                modelid.value = id;
+            }
+            
+        </script>
+    </head>
+    <body>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Appointment Status</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                 <form action="/Appointments/update-status" method="post" onchange="change()">
+                    <input type="hidden" name="modelid"  id ="modelid" value="">
+                    <label for="status" class="form-label">Select Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option>Seen</option>
+                        <option>Cancelled</option>
+                        <option>Update</option>
+                      </select>
+                    <div class="datetime" id="datetimebox">
+                    <label for="dateTime">Enter Appointment DateTime:</label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        value="2018--12T19:30"
+                        min="2018-06-07T00:00"
+                        id="dateTime"
+                        name="dateTime"
+                    />
+                </div>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Submit</button>
+            </div>
+            
+        </form>
+              </div>
+            </div>
+          </div>
+
+        <nav
+      class="navbar navbar-expand-sm navbar-dark"
+      style="background-color: #f4511e !important"
+  >
+      <div class="container-fluid">
+          <a class="navbar-brand" href="/">Home</a>
+          <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mynavbar"
+          >
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+              <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="/patient/showpatients">Patients</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/Appointments/allAppointments"
+                          >Appointments</a
+                      >
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/Appointments/todayAppointments"
+                          >Appointments For The Day</a
+                      >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/insights"
+                        >Insights</a
+                    >
+                </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+
+        <div
+        class="container p-5 my-5 text-white shadow rounded"
+        style="background-color: #f4511e"
+    >
+        <h1 th:text ="${title}">
+    </div>
+    <div class="container p-3 my-5"
+    th:each="appo: ${appointments}"
+>
+<div class="card shadow-sm rounded" style="border: 2px solid #f4511e;">
+    <div class="card-body patient-list">
+        <div>
+        <h4 class="card-title" th:text="${appo.appdesc}" />
+        <p class="card-text" th:text=" 'Appointment Created Date: ' + ${appo.datecreated}" />
+        <p class="card-text" th:text="'Appointment Date is: ' + ${appo.appointmentdate} " />
+        <div class="controls">
+        <form  class="card-link" action="/Appointments/del-appointment" method="post">
+            <input type="hidden" name="id"  id ="id" th:value="${appo.aid}">
+            <button type="submit" class="btn btn-outline-light"  style="color: #f4511e;border: 2px solid #f4511e;">Delete</button>
+        </form>
+        <!-- <a href="#" class="card-link">Card link</a> -->
+        <button type="button" class="btn" style="color: #f4511e;border: 2px solid #f4511e;" data-bs-toggle="modal" data-bs-target="#myModal" th:onclick="'bttnclick(' + ${appo.aid} + ')'">
+            Edit Status
+          </button>
+    </div>
+    </div>
+    <div class="p-1 rounded text-white" style="background-color: #f4511e;">
+        <h4 class="card-title" th:text ="${appo.status}"/>
+    </div>
+    </div>
+  </div>
+</div>
+        
+    </body>
+</html>

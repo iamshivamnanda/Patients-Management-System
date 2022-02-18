@@ -10,7 +10,7 @@
             rel="stylesheet"
         />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <title>Add Patient</title>
+        <title>Edit Patient</title>
     </head>
     <body>
         <nav
@@ -55,25 +55,21 @@
             class="container p-5 my-5 text-white"
             style="background-color: #f4511e"
         >
-            <h1>Add a Patient</h1>
+            <h1>Edit Patient</h1>
         </div>
         
         <div class="container mt-3">
-        <h2>Enter Patient Details</h2>
-            <form action="/patient/addnew-patient" method="POST">
+        <h2>Enter Updated Details</h2>
+            <form action="/patient/update-patient" method="POST">
                 <div class="mb-3 mt-3">
                   <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter Patient's Name" name="name">
+                  <input type="text" class="form-control" id="name" placeholder="Enter Patient's Name" name="name" th:value="${patient.name}">
                 </div>
                 <div class="mb-3">
                   <label for="phoneNo">Phone Number:</label>
-                  <input type="text" class="form-control" id="phoneNo" placeholder="Enter Patient's Phone Number " name="phoneNo">
+                  <input type="text" class="form-control" id="phoneNo" placeholder="Enter Patient's Phone Number " th:value="${patient.phoneno}" name="phoneNo">
                 </div>
-                <!-- <div class="mb-3">
-                  <label for="dateTime">Enter P DateTime:</label>
-                  <input type="datetime-local" class="form-control"  value="2018--12T19:30"
-                  min="2018-06-07T00:00" id="dateTime"  name="dateTime">
-                </div> -->
+                <input type="hidden" name="id"  id ="id" th:value="${patient.id}"/>
                 <button type="submit" class="btn btn-outline-light"  style="background-color: #f4511e">Submit</button>
               </form>
               </div>
